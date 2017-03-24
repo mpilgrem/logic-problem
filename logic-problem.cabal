@@ -1,0 +1,82 @@
+name:                logic-problem
+version:             0.1.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/mpilgrem/logic-problem#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Mike Pilgrem
+maintainer:          public@pilgrem.com
+copyright:           Mike Pilgrem
+category:            Test
+build-type:          Simple
+-- extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Game.LogicProblem
+  other-modules:       Game.LogicProblem.Types.C4E5
+                     , Game.LogicProblem.Types.Internal
+  build-depends:       base >= 4.7 && < 5
+                     , array
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
+test-suite caught-out
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             CaughtOut.hs
+  build-depends:       base
+                     , logic-problem
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+test-suite upgrades
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Upgrades.hs
+  build-depends:       base
+                     , logic-problem
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+test-suite spaced-out
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             SpacedOut.hs
+  build-depends:       base
+                     , logic-problem
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+test-suite gentle-giants
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             GentleGiants.hs
+  build-depends:       base
+                     , logic-problem
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+test-suite the-oregon-trail
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             TheOregonTrail.hs
+  build-depends:       base
+                     , logic-problem
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+test-suite going-to-pieces
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             GoingToPieces.hs
+  build-depends:       base
+                     , logic-problem
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/mpilgrem/logic-problems
