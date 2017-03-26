@@ -24,7 +24,7 @@ module Game.LogicProblem
 
 import Data.Array
 import Data.List (foldl')
-import Data.Maybe (isNothing)
+import Data.Maybe (isNothing, mapMaybe)
 
 import Game.LogicProblem.Types.C4E5
 import Game.LogicProblem.Types.Internal
@@ -187,21 +187,17 @@ isValidCombo x combo = (x ! combo) == Just True
 allPossibleCombos :: Universe -> [Combo]
 allPossibleCombos x = allValidCombos x ++ allUndecidedCombos x
 
--- | A list of all combinations that include the specified element.
-hasElement :: [Combo] -> Element -> [Combo]
-hasElement combos e = filter (`incl` e) combos
-
 -- | Does the list of combinations have only one that includes the element?
-uniquelyHasElement :: [Combo] -> Element -> Bool
-uniquelyHasElement combos e =
-    case hasElement combos e of
-        [_] -> True
-        _   -> False
+uniquelyHasElement :: [Combo] -> Element -> Maybe Combo
+uniquelyHasElement [] _ = Nothing
+uniquelyHasElement (combo:combos) e = if incl combo e
+    then if any (`incl` e) combos then Nothing else Just combo
+    else uniquelyHasElement combos e
 
 -- | A list of combinations that are unique in respect of including one of the
 -- possible elements.
 uniqueCombos :: [Combo] -> [Combo]
-uniqueCombos combos = concatMap (hasElement combos) $ filter (uniquelyHasElement combos) allElements 
+uniqueCombos combos = mapMaybe (uniquelyHasElement combos) allElements 
 
 -- | Apply first level of simplification recursively, until it produces no
 -- updates.
